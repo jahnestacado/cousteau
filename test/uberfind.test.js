@@ -42,23 +42,21 @@ const setupMockfs = () => {
             }),
         },
         "/uberfind/GOT/Baratheons" : {
-            "Steffon": {
-                "Robert": {
-                    "Joffrey": mockfs.symlink({
-                        path: "/uberfind/GOT/Lannisters/Jaime/Joffrey"
-                    }),
-                    "Myrcella": mockfs.symlink({
-                        path: "/uberfind/GOT/Lannisters/Jaime/Myrcella"
-                    }),
-                    "Tommen": mockfs.symlink({
-                        path: "/uberfind/GOT/Lannisters/Jaime/Tommen"
-                    }),
-                },
-                "Stannis": {
-                    "Shireen": "-",
-                },
-                "Renly": "-",
+            "Robert": {
+                "Joffrey": mockfs.symlink({
+                    path: "/uberfind/GOT/Lannisters/Jaime/Joffrey"
+                }),
+                "Myrcella": mockfs.symlink({
+                    path: "/uberfind/GOT/Lannisters/Jaime/Myrcella"
+                }),
+                "Tommen": mockfs.symlink({
+                    path: "/uberfind/GOT/Lannisters/Jaime/Tommen"
+                }),
             },
+            "Stannis": {
+                "Shireen": "-",
+            },
+            "Renly": "-",
         },
         "/uberfind/Whisperers": {
             "Volantis": mockfs.directory({
@@ -105,8 +103,30 @@ describe("#################### Start uberfind find tests", () => {
                 symlinkStats = result.dirs.filter((stats) => stats.isSymbolicLink());
             });
 
-            it("should find 7 directories", () => {
-                expect(result.dirs).to.have.lengthOf(7);
+            const expectedDirStats = [
+                {
+                    path: "/uberfind/GOT/Baratheons",
+                },
+                {
+                    path: "/uberfind/GOT/Starks",
+                },
+                {
+                    path: "/uberfind/GOT/Baratheons/Robert",
+                },
+                {
+                    path: "/uberfind/GOT/Baratheons/Stannis",
+                },
+                {
+                    path: "/uberfind/GOT/Starks/Eddard",
+                    uid: eddardStarkDirUid,
+                },
+                {
+                    path: "/uberfind/GOT/Starks/Lyanna",
+                    birthtime: lyannaStarkDirBirthtime,
+                },
+            ];
+            it("should find the expected stats of 6 directories", () => {
+                expect(result.dirs).to.shallowDeepEqual(expectedDirStats);
             });
 
             it("should not have any symlinkStats", () => {
@@ -120,8 +140,39 @@ describe("#################### Start uberfind find tests", () => {
                 symlinkStats = result.files.filter((stats) => stats.isSymbolicLink());
             });
 
-            it("should find 9 files", () => {
-                expect(result.files).to.have.lengthOf(9);
+            const expectedFileStats = [
+                {
+                    path: "/uberfind/GOT/Baratheons/Renly",
+                },
+                {
+                    path: "/uberfind/GOT/Baratheons/Stannis/Shireen",
+                },
+                {
+                    path: "/uberfind/GOT/Starks/Eddard/Arya",
+                },
+                {
+                    path: "/uberfind/GOT/Starks/Eddard/Brandon",
+                },
+                {
+                    path: "/uberfind/GOT/Starks/Eddard/Rickon",
+                },
+                {
+                    path: "/uberfind/GOT/Starks/Eddard/Rob",
+                },
+                {
+                    path: "/uberfind/GOT/Starks/Eddard/Sansa",
+                },
+                {
+                    path: "/uberfind/GOT/Starks/Eddard/John",
+                    gid: johnSnowFileGid,
+                },
+                {
+                    path: "/uberfind/GOT/Starks/Lyanna/John",
+                    gid: johnSnowFileGid,
+                },
+            ];
+            it("should find the expected stats of 9 files", () => {
+                expect(result.files).to.shallowDeepEqual(expectedFileStats);
             });
 
             it("should have only John as symlink", () => {
@@ -131,9 +182,9 @@ describe("#################### Start uberfind find tests", () => {
         });
 
         const expectedBrokenSymlinks = [
-            "/uberfind/GOT/Baratheons/Steffon/Robert/Joffrey",
-            "/uberfind/GOT/Baratheons/Steffon/Robert/Myrcella",
-            "/uberfind/GOT/Baratheons/Steffon/Robert/Tommen",
+            "/uberfind/GOT/Baratheons/Robert/Joffrey",
+            "/uberfind/GOT/Baratheons/Robert/Myrcella",
+            "/uberfind/GOT/Baratheons/Robert/Tommen",
         ];
         describe("when testing returned broken symlinks", () => {
             it("should find all the expected broken symlinks", () => {
