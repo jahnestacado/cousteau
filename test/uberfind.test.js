@@ -133,14 +133,20 @@ describe("#################### Start uberfind find tests", () => {
                 });
             });
 
-            const expectedStats = {
+            const expectedStats = [
+                {
+                path: "/uberfind/GOT/Starks/Eddard/John",
+                gid: 127,
+                mode: 33261,
+                },
+                {
                 path: "/uberfind/GOT/Starks/Lyanna/John",
                 gid: 127,
                 mode: 33261,
-            };
+                },
+            ];
             it("should return only one file with the expected filepath", () => {
-                expect(result.files).to.have.lengthOf(1);
-                expect(result.files[0]).to.shallowDeepEqual(expectedStats);
+                expect(result.files).to.shallowDeepEqual(expectedStats);
             });
         });
     });
