@@ -7,8 +7,9 @@ chai.use(require("chai-shallow-deep-equal"));
 const expect = chai.expect;
 
 const eddardStarkDirUid = 7;
-const johnStarkFileGid = 127;
-const lyannaStarkDirBirthtime = {dummyBirthTime: "1st June"};
+const johnSnowFileGid = 127;
+const lyannaStarkDirBirthtime = new Date("November 5, 1605 23:59:00");
+const varysFileGid = 33;
 
 const setupMockfs = () => {
     mockfs({
@@ -34,7 +35,7 @@ const setupMockfs = () => {
                 items: {
                     "John": mockfs.file({
                         content: "-",
-                        gid: johnStarkFileGid,
+                        gid: johnSnowFileGid,
                         mode: parseInt("0755",8),
                     })
                 }
@@ -57,6 +58,27 @@ const setupMockfs = () => {
                     "Shireen": "-",
                 },
                 "Renly": "-",
+            },
+        },
+        "/uberfind/Whisperers": {
+            "Volantis": mockfs.directory({
+                items: {
+                    "Varys": mockfs.symlink({
+                        path: "/uberfind/Whisperers/Kings-Landing/Varys",
+                    }),
+                }
+            }),
+            "Kings-Landing": mockfs.directory({
+                items: {
+                    "Varys": mockfs.symlink({
+                        path: "/uberfind/Whisperers/Lys/Varys",
+                    }),
+                }
+            }),
+            "Lys": {
+                "Varys": mockfs.file({
+                    gid: varysFileGid,
+                })
             },
         },
     });
@@ -122,10 +144,9 @@ describe("#################### Start uberfind find tests", () => {
 
     describe("when calling uberfind on the /uberfind/GOT/ dir with filter options", () => {
 
-        describe(`when ingoring all files that don't have gid == ${johnStarkFileGid} under the GOT dir`, () => {
-
+        describe(`when ingoring all files that don't have gid == ${johnSnowFileGid} under the GOT dir`, () => {
             let result;
-            const ignoreRules = {file :{gid: (id) => id !== johnStarkFileGid}};
+            const ignoreRules = {file :{gid: (id) => id !== johnSnowFileGid}};
             before((done) => {
                 uberfind("/uberfind/GOT", ignoreRules).then((_result) => {
                     result = _result;
@@ -135,17 +156,60 @@ describe("#################### Start uberfind find tests", () => {
 
             const expectedStats = [
                 {
-                path: "/uberfind/GOT/Starks/Eddard/John",
-                gid: 127,
-                mode: 33261,
+                    path: "/uberfind/GOT/Starks/Eddard/John",
+                    gid: johnSnowFileGid,
+                    mode: 33261,
                 },
                 {
-                path: "/uberfind/GOT/Starks/Lyanna/John",
-                gid: 127,
-                mode: 33261,
+                    path: "/uberfind/GOT/Starks/Lyanna/John",
+                    gid: johnSnowFileGid,
+                    mode: 33261,
                 },
             ];
-            it("should return only one file with the expected filepath", () => {
+            it("should return both original and linked file stats (Eddard/John and Lyanna/John files)", () => {
+                expect(result.files).to.shallowDeepEqual(expectedStats);
+            });
+        });
+
+        describe(`when ingoring all files under dirs that don't have birthtime == ${lyannaStarkDirBirthtime} under the /GOT/Starks dir`, () => {
+            let result;
+            const ignoreRules = {dir :{birthtime: (bt) => bt !== lyannaStarkDirBirthtime}};
+            before((done) => {
+                uberfind("/uberfind/GOT/Starks", ignoreRules).then((_result) => {
+                    result = _result;
+                    done();
+                });
+            });
+
+            const expectedStats = [
+                {
+                    path: "/uberfind/GOT/Starks/Lyanna/John",
+                    gid: johnSnowFileGid,
+                    mode: 33261,
+                },
+            ];
+            it("should return only Lyanna/John actual file stats but not its symlink", () => {
+                expect(result.files).to.shallowDeepEqual(expectedStats);
+            });
+        });
+
+        describe(`when testing filters in combination with double-linked files`, () => {
+            let result;
+            const ignoreRules = {file :{gid: (id) => id !== varysFileGid}};
+            before((done) => {
+                uberfind("/uberfind/Whisperers/Volantis", ignoreRules).then((_result) => {
+                    result = _result;
+                    done();
+                });
+            });
+
+            const expectedStats = [
+                {
+                    path: "/uberfind/Whisperers/Volantis/Varys",
+                    gid: varysFileGid,
+                }
+            ];
+            it("should return the expected stats of the Volantis/Varys file", () => {
                 expect(result.files).to.shallowDeepEqual(expectedStats);
             });
         });
