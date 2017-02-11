@@ -67,7 +67,7 @@ The ```filterOption``` can be applied to one or more of the [UberStats](#UberSta
 const uberfind = require("uberfind");
 
 // Without filtering
-uberfind(aPath, (errors, result) => {
+uberfind("aPath", (errors, result) => {
     console.log(errors, result);
 });
 
@@ -81,10 +81,10 @@ const filterOption = {
     file: {
         path: (p) => !(/.*\.png$/i).test(p),
         size: (s) => s <= 1500,
-    }
+    },
 };
 
-uberfind(aPath, filterOption, (errors, result) => {
+uberfind("aPath", filterOption, (errors, result) => {
     console.log(errors, result);
 });
 
