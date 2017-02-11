@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec",
-    "prepublish": "gulp"
+    "prepublish": "gulp",
+    "test-on-travis": "istanbul cover --report lcovonly mocha -- --timeout 5000 --slow 500 test",
+    "upload-to-coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
+  "bin": "node_modules/mocha/bin/mocha",
   "author": "Ioannis Tzanellis <ioannis.kiwe@gmail.com>",
   "license": "MIT",
   "devDependencies": {
@@ -16,6 +19,8 @@
     "gulp": "^3.9.1",
     "gulp-babel": "^6.1.2",
     "mocha": "^3.2.0",
-    "mock-fs": "^3.12.1"
+    "mock-fs": "^3.12.1",
+    "coveralls": "^2.11.9",
+    "istanbul": "^0.4.3"
   }
 }
