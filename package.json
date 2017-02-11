@@ -1,6 +1,6 @@
 {
   "name": "uberfind",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Recursive directory walker that retrieves all sub-directory and file paths along with their stats.",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "bin": {
     "_mocha": "node_modules/mocha/bin/_mocha"
   },
-   "keywords": [
+  "keywords": [
     "recursive",
     "search",
     "symlink",
