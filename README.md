@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/jahnestacado/uberfind.svg?branch=master)](https://travis-ci.org/jahnestacado/uberfind)
 [![downloads per month](http://img.shields.io/npm/dm/uberfind.svg)](https://www.npmjs.org/package/uberfind)
 [![Coverage Status](https://coveralls.io/repos/github/jahnestacado/uberfind/badge.svg?branch=master)](https://coveralls.io/github/jahnestacado/uberfind?branch=master)
+
 # uberfind
 -----------
 Recursive directory walker that retrieves all sub-directory and file paths along with their [stats](https://nodejs.org/api/fs.html#fs_class_fs_stats).
