@@ -1,6 +1,6 @@
 # uberfind
 -----------
-Recursive directory walker that retrieves all children directories and file paths along with their [stats](https://nodejs.org/api/fs.html#fs_class_fs_stats).
+Recursive directory walker that retrieves all sub-directory and file paths along with their [stats](https://nodejs.org/api/fs.html#fs_class_fs_stats).
 
 ## Features
 
