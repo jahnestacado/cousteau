@@ -396,7 +396,7 @@ describe("#################### Start uberfind find tests", () => {
     });
 
     after(() => {
-        // mockfs.restore();
+        mockfs.restore();
         console.log("  #################### End of uberfind tests");
     });
 });
