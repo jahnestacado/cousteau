@@ -6,7 +6,7 @@ Recursive directory walker that retrieves all sub-directory and file paths along
 
 * Recursively traverses each sub-directory
 * Asynchronous
-* Filtering support based on [Uberstats](#UberStats) properties
+* Filtering support based on [UberStats](#UberStats) properties
 * Follows symlinks and filtering is applied based on the original target file/directory
 * Finds brokenSymlinks
 
