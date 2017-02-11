@@ -12,6 +12,19 @@
   "bin": {
     "_mocha": "node_modules/mocha/bin/_mocha"
   },
+   "keywords": [
+    "recursive",
+    "search",
+    "symlink",
+    "symbolic",
+    "link",
+    "stats",
+    "fs",
+    "readdir",
+    "filesystem",
+    "find",
+    "filter"
+  ],
   "author": "Ioannis Tzanellis <ioannis.kiwe@gmail.com>",
   "license": "MIT",
   "devDependencies": {
