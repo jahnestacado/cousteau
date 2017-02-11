@@ -1,13 +1,13 @@
 # uberfind
 -----------
-Recursive directory walker that retrieves all children directory and file paths along with their [stats](https://nodejs.org/api/fs.html#fs_class_fs_stats).
+Recursive directory walker that retrieves all children directories and file paths along with their [stats](https://nodejs.org/api/fs.html#fs_class_fs_stats).
 
 ## Features
 
-* Recursicve traverse each sub-directory
+* Recursively traverses each sub-directory
 * Asynchronous
-* Filtering based on [Uberstats](#### UberStats) properties
-* Follows symlinks and filtering is applied based on
+* Filtering support based on [Uberstats](#UberStats) properties
+* Follows symlinks and filtering is applied based on the original target file/directory
 * Finds brokenSymlinks
 
 ## Install
@@ -33,7 +33,8 @@ __uberfind(path, [ignoreOptions], callback)__
     }
 ```
 
-#### UberStats
+#### UberStats<a name="UberStats"></a>
+
 Is an [fs.Stats](https://nodejs.org/api/fs.html#fs_class_fs_stats) instance extended with the ```path``` property.
 
 For example:
@@ -58,7 +59,7 @@ For example:
     }
 ```
 
-The ```filterOption``` can be applied to one or more of the UberStats properties either on the directories and/or the files.
+The ```filterOption``` can be applied to one or more of the [UberStats](#UberStats) properties either on the directories and/or the files.
 
 ### Example
 ```javascript
@@ -78,18 +79,16 @@ const filterOption = {
         path: (p) => !p.includes("zilla"),
     },
     file: {
-        path: (p) => !p.endsWith("png"),
+        path: (p) => !(/.*\.png$/i).test(p),
         size: (s) => s <= 1500,
     }
 };
+
 uberfind(aPath, filterOption, (errors, result) => {
     console.log(errors, result);
 });
 
-
-
 ```
-
 
 
 ## Test
@@ -97,8 +96,8 @@ uberfind(aPath, filterOption, (errors, result) => {
 $ npm test
 ```
 
-_Note that in order to run the tests you need Nodejs version >= 6_
+_Note that in order to run the tests you need NodeJs version >= 6_
 
 ## License
 Copyright (c) 2017 Ioannis Tzanellis<br>
-[Released under the MIT license](https://github.com/jahnestacado/chunk2json/blob/master/LICENSE)
+[Released under the MIT license](https://github.com/jahnestacado/uberfind/blob/master/LICENSE)
