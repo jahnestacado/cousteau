@@ -1,9 +1,9 @@
-[![NPM version](http://img.shields.io/npm/v/uberfind.svg)](https://www.npmjs.org/package/uberfind)
-[![Build Status](https://travis-ci.org/jahnestacado/uberfind.svg?branch=master)](https://travis-ci.org/jahnestacado/uberfind)
-[![downloads per month](http://img.shields.io/npm/dm/uberfind.svg)](https://www.npmjs.org/package/uberfind)
-[![Coverage Status](https://coveralls.io/repos/github/jahnestacado/uberfind/badge.svg?branch=master)](https://coveralls.io/github/jahnestacado/uberfind?branch=master)
+[![NPM version](http://img.shields.io/npm/v/cousteau.svg)](https://www.npmjs.org/package/cousteau)
+[![Build Status](https://travis-ci.org/jahnestacado/cousteau.svg?branch=master)](https://travis-ci.org/jahnestacado/cousteau)
+[![downloads per month](http://img.shields.io/npm/dm/cousteau.svg)](https://www.npmjs.org/package/cousteau)
+[![Coverage Status](https://coveralls.io/repos/github/jahnestacado/cousteau/badge.svg?branch=master)](https://coveralls.io/github/jahnestacado/cousteau?branch=master)
 
-# uberfind
+# cousteau
 -----------
 Recursive directory walker that retrieves all sub-directory and file paths along with their [stats](https://nodejs.org/api/fs.html#fs_class_fs_stats).
 
@@ -11,17 +11,17 @@ Recursive directory walker that retrieves all sub-directory and file paths along
 
 * Recursively traverses each sub-directory
 * Asynchronous
-* Filtering support based on [UberStats](#UberStats) properties
+* Filtering support based on [CousteauStats](#CousteauStats) properties
 * Symlink support (Filtering in symlinks is applied based on the original target file/directory)
 
 ## Install
 ```bash
-$ npm install uberfind
+$ npm install cousteau
 ```
 ## API
 The function accepts three arguments
 
-__uberfind(path, [ignoreOptions], callback)__
+__cousteau(path, [ignoreOptions], callback)__
 
  * ```path``` - The target directory path
  * ```ingoreOptions``` - Optional filtering option
@@ -31,13 +31,13 @@ __uberfind(path, [ignoreOptions], callback)__
  ```javascript
     // Result object
     {
-        dirs: [UberStats],
-        files: [UberStats],
+        dirs: [CousteauStats],
+        files: [CousteauStats],
         brokenSymlinks: [String],
     }
 ```
 
-#### UberStats<a name="UberStats"></a>
+#### CousteauStats<a name="CousteauStats"></a>
 
 Is an [fs.Stats](https://nodejs.org/api/fs.html#fs_class_fs_stats) instance extended with the ```path``` property.
 
@@ -63,15 +63,15 @@ For example:
     }
 ```
 
-The ```filterOption``` can be applied to one or more of the [UberStats](#UberStats) properties either on the directories and/or the files.
+The ```filterOption``` can be applied to one or more of the [CousteauStats](#CousteauStats) properties either on the directories and/or the files.
 
 ### Example
 ```javascript
 
-const uberfind = require("uberfind");
+const cousteau = require("cousteau");
 
 // Without filtering
-uberfind("aPath", (errors, result) => {
+cousteau("aPath", (errors, result) => {
     console.log(errors, result);
 });
 
@@ -88,7 +88,7 @@ const filterOption = {
     },
 };
 
-uberfind("aPath", filterOption, (errors, result) => {
+cousteau("aPath", filterOption, (errors, result) => {
     console.log(errors, result);
 });
 
@@ -104,4 +104,4 @@ _Note that in order to run the tests you need NodeJs version >= 6_
 
 ## License
 Copyright (c) 2017 Ioannis Tzanellis<br>
-[Released under the MIT license](https://github.com/jahnestacado/uberfind/blob/master/LICENSE)
+[Released under the MIT license](https://github.com/jahnestacado/cousteau/blob/master/LICENSE)

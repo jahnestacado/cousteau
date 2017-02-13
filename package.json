@@ -1,6 +1,6 @@
 {
-  "name": "uberfind",
-  "version": "1.0.3",
+  "name": "cousteau",
+  "version": "1.0.0",
   "description": "Recursive directory walker that retrieves all sub-directory and file paths along with their stats.",
   "main": "index.js",
   "scripts": {

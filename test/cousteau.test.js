@@ -1,12 +1,12 @@
 /**
-* uberfind <https://github.com/jahnestacado/uberfind>
+* cousteau <https://github.com/jahnestacado/cousteau>
 * Copyright (c) 2017 Ioannis Tzanellis
 * Licensed under the MIT License (MIT).
 */
 "use strict"
 
 const mockfs = require("mock-fs");
-const uberfind = require("./../lib/uberfind.js");
+const cousteau = require("./../lib/cousteau.js");
 const chai = require("chai");
 chai.use(require("chai-shallow-deep-equal"));
 const expect = chai.expect;
@@ -18,14 +18,14 @@ const varysFileGid = 33;
 
 const setupMockfs = () => {
     mockfs({
-        "/uberfind/GOT/House/Stark" : {
+        "/cousteau/GOT/House/Stark" : {
             "Eddard": mockfs.directory({
                 mode: parseInt("0777",8),
                 uid: eddardStarkDirUid,
                 items: {
                     "Rob": "-",
                     "John": mockfs.symlink({
-                        path: "/uberfind/GOT/House/Stark/Lyanna/John",
+                        path: "/cousteau/GOT/House/Stark/Lyanna/John",
                         gid: 0,
                     }),
                     "Sansa": "-",
@@ -45,16 +45,16 @@ const setupMockfs = () => {
                 }
             }),
         },
-        "/uberfind/GOT/House/Baratheon" : {
+        "/cousteau/GOT/House/Baratheon" : {
             "Robert": {
                 "Joffrey": mockfs.symlink({
-                    path: "/uberfind/GOT/House/Lannister/Jaime/Joffrey"
+                    path: "/cousteau/GOT/House/Lannister/Jaime/Joffrey"
                 }),
                 "Myrcella": mockfs.symlink({
-                    path: "/uberfind/GOT/House/Lannister/Jaime/Myrcella"
+                    path: "/cousteau/GOT/House/Lannister/Jaime/Myrcella"
                 }),
                 "Tommen": mockfs.symlink({
-                    path: "/uberfind/GOT/House/Lannister/Jaime/Tommen"
+                    path: "/cousteau/GOT/House/Lannister/Jaime/Tommen"
                 }),
             },
             "Stannis": {
@@ -62,18 +62,18 @@ const setupMockfs = () => {
             },
             "Renly": "-",
         },
-        "/uberfind/GOT/Whisperers": {
+        "/cousteau/GOT/Whisperers": {
             "Volantis": mockfs.directory({
                 items: {
                     "Varys": mockfs.symlink({
-                        path: "/uberfind/GOT/Whisperers/Kings-Landing/Varys",
+                        path: "/cousteau/GOT/Whisperers/Kings-Landing/Varys",
                     }),
                 }
             }),
             "Kings-Landing": mockfs.directory({
                 items: {
                     "Varys": mockfs.symlink({
-                        path: "/uberfind/GOT/Whisperers/Lys/Varys",
+                        path: "/cousteau/GOT/Whisperers/Lys/Varys",
                     }),
                 }
             }),
@@ -83,7 +83,7 @@ const setupMockfs = () => {
                 })
             },
         },
-        "/uberfind/GOT/The Wall": {
+        "/cousteau/GOT/The Wall": {
             "inside": mockfs.directory({
                 items: {
                     "Castle Black": "-",
@@ -104,15 +104,15 @@ const setupMockfs = () => {
     });
 };
 
-describe("#################### Start uberfind find tests", () => {
+describe("#################### Start cousteau find tests", () => {
     before(() => {
         setupMockfs();
     });
 
-    describe("when calling uberfind on the /uberfind/GOT/House dir without filter options", () => {
+    describe("when calling cousteau on the /cousteau/GOT/House dir without filter options", () => {
         let result, errors;
         before((done) => {
-            uberfind("/uberfind/GOT/House", (_errors, _result) => {
+            cousteau("/cousteau/GOT/House", (_errors, _result) => {
                 result = _result;
                 errors = _errors;
                 done();
@@ -131,23 +131,23 @@ describe("#################### Start uberfind find tests", () => {
 
             const expectedDirStats = [
                 {
-                    path: "/uberfind/GOT/House/Baratheon",
+                    path: "/cousteau/GOT/House/Baratheon",
                 },
                 {
-                    path: "/uberfind/GOT/House/Stark",
+                    path: "/cousteau/GOT/House/Stark",
                 },
                 {
-                    path: "/uberfind/GOT/House/Baratheon/Robert",
+                    path: "/cousteau/GOT/House/Baratheon/Robert",
                 },
                 {
-                    path: "/uberfind/GOT/House/Baratheon/Stannis",
+                    path: "/cousteau/GOT/House/Baratheon/Stannis",
                 },
                 {
-                    path: "/uberfind/GOT/House/Stark/Eddard",
+                    path: "/cousteau/GOT/House/Stark/Eddard",
                     uid: eddardStarkDirUid,
                 },
                 {
-                    path: "/uberfind/GOT/House/Stark/Lyanna",
+                    path: "/cousteau/GOT/House/Stark/Lyanna",
                     birthtime: lyannaStarkDirBirthtime,
                 },
             ];
@@ -169,32 +169,32 @@ describe("#################### Start uberfind find tests", () => {
 
             const expectedFileStats = [
                 {
-                    path: "/uberfind/GOT/House/Baratheon/Renly",
+                    path: "/cousteau/GOT/House/Baratheon/Renly",
                 },
                 {
-                    path: "/uberfind/GOT/House/Baratheon/Stannis/Shireen",
+                    path: "/cousteau/GOT/House/Baratheon/Stannis/Shireen",
                 },
                 {
-                    path: "/uberfind/GOT/House/Stark/Eddard/Arya",
+                    path: "/cousteau/GOT/House/Stark/Eddard/Arya",
                 },
                 {
-                    path: "/uberfind/GOT/House/Stark/Eddard/Brandon",
+                    path: "/cousteau/GOT/House/Stark/Eddard/Brandon",
                 },
                 {
-                    path: "/uberfind/GOT/House/Stark/Eddard/Rickon",
+                    path: "/cousteau/GOT/House/Stark/Eddard/Rickon",
                 },
                 {
-                    path: "/uberfind/GOT/House/Stark/Eddard/Rob",
+                    path: "/cousteau/GOT/House/Stark/Eddard/Rob",
                 },
                 {
-                    path: "/uberfind/GOT/House/Stark/Eddard/Sansa",
+                    path: "/cousteau/GOT/House/Stark/Eddard/Sansa",
                 },
                 {
-                    path: "/uberfind/GOT/House/Stark/Eddard/John",
+                    path: "/cousteau/GOT/House/Stark/Eddard/John",
                     gid: johnSnowFileGid,
                 },
                 {
-                    path: "/uberfind/GOT/House/Stark/Lyanna/John",
+                    path: "/cousteau/GOT/House/Stark/Lyanna/John",
                     gid: johnSnowFileGid,
                 },
             ];
@@ -205,14 +205,14 @@ describe("#################### Start uberfind find tests", () => {
 
             it("should have only John as symlink", () => {
                 expect(symlinkStats).to.have.lengthOf(1);
-                expect(symlinkStats[0].path).to.equal("/uberfind/GOT/House/Stark/Eddard/John");
+                expect(symlinkStats[0].path).to.equal("/cousteau/GOT/House/Stark/Eddard/John");
             });
         });
 
         const expectedBrokenSymlinks = [
-            "/uberfind/GOT/House/Baratheon/Robert/Joffrey",
-            "/uberfind/GOT/House/Baratheon/Robert/Myrcella",
-            "/uberfind/GOT/House/Baratheon/Robert/Tommen",
+            "/cousteau/GOT/House/Baratheon/Robert/Joffrey",
+            "/cousteau/GOT/House/Baratheon/Robert/Myrcella",
+            "/cousteau/GOT/House/Baratheon/Robert/Tommen",
         ];
         describe("when testing returned broken symlinks", () => {
             it("should find all the expected broken symlinks", () => {
@@ -224,7 +224,7 @@ describe("#################### Start uberfind find tests", () => {
     describe("when testing error handling mechanism", function() {
         let result, errors;
         before((done) => {
-            uberfind("/uberfind/GOT/The Wall/", (_errors, _result) => {
+            cousteau("/cousteau/GOT/The Wall/", (_errors, _result) => {
                 result = _result;
                 errors = _errors;
                 done();
@@ -232,8 +232,8 @@ describe("#################### Start uberfind find tests", () => {
         });
 
         const expectedErrorMessages =  [
-            "EACCES, permission denied \'/uberfind/GOT/The Wall/beyond/Craster\'s Keep\'",
-            "EACCES, permission denied \'/uberfind/GOT/The Wall/beyond/White Tree\'",
+            "EACCES, permission denied \'/cousteau/GOT/The Wall/beyond/Craster\'s Keep\'",
+            "EACCES, permission denied \'/cousteau/GOT/The Wall/beyond/White Tree\'",
         ];
         it("should return the expected errors", () => {
             const errorMessages = errors.map((e) => e.message);
@@ -252,10 +252,10 @@ describe("#################### Start uberfind find tests", () => {
 
             const expectedDirStats = [
                 {
-                    path: "/uberfind/GOT/The Wall/beyond",
+                    path: "/cousteau/GOT/The Wall/beyond",
                 },
                 {
-                    path: "/uberfind/GOT/The Wall/inside",
+                    path: "/cousteau/GOT/The Wall/inside",
                 },
             ];
             it("should find the expected stats of 2 directories", () => {
@@ -275,13 +275,13 @@ describe("#################### Start uberfind find tests", () => {
 
             const expectedFileStats = [
                 {
-                    path: "/uberfind/GOT/The Wall/inside/Castle Black",
+                    path: "/cousteau/GOT/The Wall/inside/Castle Black",
                 },
                 {
-                    path: "/uberfind/GOT/The Wall/inside/Eastwatch",
+                    path: "/cousteau/GOT/The Wall/inside/Eastwatch",
                 },
                 {
-                    path: "/uberfind/GOT/The Wall/inside/Shadow Tower",
+                    path: "/cousteau/GOT/The Wall/inside/Shadow Tower",
                 },
             ];
             it("should find the expected stats of 3 files", () => {
@@ -295,13 +295,13 @@ describe("#################### Start uberfind find tests", () => {
         });
     });
 
-    describe("when calling uberfind on the /uberfind/GOT/House dir with filter options", () => {
+    describe("when calling cousteau on the /cousteau/GOT/House dir with filter options", () => {
 
         describe(`when ingoring all files that don't have gid == ${johnSnowFileGid} under the GOT dir`, () => {
             let result, errors;
             const ignoreRules = {file :{gid: (id) => id !== johnSnowFileGid}};
             before((done) => {
-                uberfind("/uberfind/GOT/House", ignoreRules, (_errors, _result) => {
+                cousteau("/cousteau/GOT/House", ignoreRules, (_errors, _result) => {
                     result = _result;
                     errors = _errors;
                     done();
@@ -313,9 +313,9 @@ describe("#################### Start uberfind find tests", () => {
             });
 
             const expectedBrokenSymlinks = [
-                "/uberfind/GOT/House/Baratheon/Robert/Joffrey",
-                "/uberfind/GOT/House/Baratheon/Robert/Myrcella",
-                "/uberfind/GOT/House/Baratheon/Robert/Tommen",
+                "/cousteau/GOT/House/Baratheon/Robert/Joffrey",
+                "/cousteau/GOT/House/Baratheon/Robert/Myrcella",
+                "/cousteau/GOT/House/Baratheon/Robert/Tommen",
             ];
             describe("when testing returned broken symlinks", () => {
                 it("should find all the expected broken symlinks", () => {
@@ -325,12 +325,12 @@ describe("#################### Start uberfind find tests", () => {
 
             const expectedStats = [
                 {
-                    path: "/uberfind/GOT/House/Stark/Eddard/John",
+                    path: "/cousteau/GOT/House/Stark/Eddard/John",
                     gid: johnSnowFileGid,
                     mode: 33261,
                 },
                 {
-                    path: "/uberfind/GOT/House/Stark/Lyanna/John",
+                    path: "/cousteau/GOT/House/Stark/Lyanna/John",
                     gid: johnSnowFileGid,
                     mode: 33261,
                 },
@@ -345,7 +345,7 @@ describe("#################### Start uberfind find tests", () => {
             let result;
             const ignoreRules = {dir :{birthtime: (bt) => bt !== lyannaStarkDirBirthtime}};
             before((done) => {
-                uberfind("/uberfind/GOT/House/Stark", ignoreRules, (errors, _result) => {
+                cousteau("/cousteau/GOT/House/Stark", ignoreRules, (errors, _result) => {
                     result = _result;
                     done();
                 });
@@ -353,7 +353,7 @@ describe("#################### Start uberfind find tests", () => {
 
             const expectedStats = [
                 {
-                    path: "/uberfind/GOT/House/Stark/Lyanna/John",
+                    path: "/cousteau/GOT/House/Stark/Lyanna/John",
                     gid: johnSnowFileGid,
                     mode: 33261,
                 },
@@ -368,7 +368,7 @@ describe("#################### Start uberfind find tests", () => {
             let result, errors;
             const ignoreRules = {file :{gid: (id) => id !== varysFileGid}};
             before((done) => {
-                uberfind("/uberfind/GOT/Whisperers/Volantis", ignoreRules, (_errors, _result) => {
+                cousteau("/cousteau/GOT/Whisperers/Volantis", ignoreRules, (_errors, _result) => {
                     result = _result;
                     errors = _errors;
                     done();
@@ -385,7 +385,7 @@ describe("#################### Start uberfind find tests", () => {
 
             const expectedStats = [
                 {
-                    path: "/uberfind/GOT/Whisperers/Volantis/Varys",
+                    path: "/cousteau/GOT/Whisperers/Volantis/Varys",
                     gid: varysFileGid,
                 }
             ];
@@ -397,6 +397,6 @@ describe("#################### Start uberfind find tests", () => {
 
     after(() => {
         mockfs.restore();
-        console.log("  #################### End of uberfind tests");
+        console.log("  #################### End of cousteau tests");
     });
 });
