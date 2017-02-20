@@ -46,20 +46,19 @@ For example:
 
     {
       path string
-      dev string
-      mode string
-      nlink string
-      uid string
-      gid string
-      rdev string
-      blksize string
-      ino string
-      size string
-      blocks string
-      atime string
-      mtime string
-      ctime string
-      birthtime string
+      dev number
+      mode number
+      nlink number
+      uid number
+      gid number
+      rdev number
+      blksize number
+      ino number
+      size number
+      blocks number
+      atime Date object
+      mtime Date object
+      ctime Date object
     }
 ```
 
