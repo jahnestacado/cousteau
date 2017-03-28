@@ -1,6 +1,6 @@
 {
   "name": "cousteau",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Recursive directory walker that retrieves all sub-directory and file paths along with their stats.",
   "main": "index.js",
   "scripts": {
