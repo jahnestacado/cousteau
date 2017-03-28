@@ -3,6 +3,4 @@ node_js:
   - "6"
 
 install: npm install
-script: npm run test-on-travis
-after_success:
-  - npm run upload-to-coveralls
+script: npm test
