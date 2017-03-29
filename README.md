@@ -5,14 +5,15 @@
 
 # cousteau
 -----------
-Recursive directory walker that retrieves all sub-directory and file paths along with their [stats](https://nodejs.org/api/fs.html#fs_class_fs_stats).
+Recursive directory walker that retrieves all dir/file paths along with their [stats](https://nodejs.org/api/fs.html#fs_class_fs_stats) and follows symlinks.
 
 ## Features
 
-* Recursively traverses each sub-directory
-* Asynchronous
-* Filtering support based on [CousteauStats](#CousteauStats) properties
-* Symlink support (Filtering in symlinks is applied based on the original target file/directory)
+* Traverses recursively and asynchronously all sub-directories.
+* Can ignore artifacts via filtering mechanism based on [CousteauStats](#CousteauStats) properties.
+* Properly resolves and follows symlinks. (filtering in symlinks is applied based on the original target artifact)
+* Reports broken symlinks.
+
 
 ## Install
 ```bash
@@ -59,6 +60,14 @@ For example:
       atime Date object
       mtime Date object
       ctime Date object
+      
+      isFile function
+      isDirectory function
+      isBlockDevice function
+      isCharacterDevice function
+      isSymbolicLink function
+      isFIFO function
+      isSocket function
     }
 ```
 
