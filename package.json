@@ -1,16 +1,13 @@
 {
   "name": "cousteau",
-  "version": "1.0.2",
+  "version": "1.0.9",
   "description": "Recursive directory walker that retrieves all sub-directory and file paths along with their stats.",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec",
-    "prepublishOnly": "gulp",
+    "prepublish": "gulp",
     "test-on-travis": "istanbul cover --report lcovonly _mocha",
     "upload-to-coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
-  },
-  "bin": {
-    "_mocha": "node_modules/mocha/bin/_mocha"
   },
   "keywords": [
     "recursive",
