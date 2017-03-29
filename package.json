@@ -1,7 +1,7 @@
 {
   "name": "cousteau",
   "version": "1.0.11",
-  "description": "Recursive directory walker that retrieves all sub-directory and file paths along with their stats.",
+  "description": "Recursive directory walker that retrieves all dir/file paths along with their stats and follows symlinks.",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec",
