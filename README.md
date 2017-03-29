@@ -71,7 +71,7 @@ For example:
     }
 ```
 
-The ```filterOption``` can be applied to one or more of the [CousteauStats](#CousteauStats) properties either on the directories and/or the files.
+The ```ignoreOptions``` can be applied to one or more of the [CousteauStats](#CousteauStats) properties either on the directories and/or the files.
 
 ### Example
 ```javascript
@@ -86,7 +86,7 @@ cousteau("aPath", (errors, result) => {
 // Find all directories that contain the "zilla" substring
 // and all png files that their size is more than 1500 bytes
 
-const filterOption = {
+const ignoreOptions = {
     dir: {
         path: (p) => !p.includes("zilla"),
     },
@@ -96,7 +96,7 @@ const filterOption = {
     },
 };
 
-cousteau("aPath", filterOption, (errors, result) => {
+cousteau("aPath", ignoreOptions, (errors, result) => {
     console.log(errors, result);
 });
 
@@ -108,7 +108,7 @@ cousteau("aPath", filterOption, (errors, result) => {
 $ npm test
 ```
 
-_Note that in order to run the tests you need NodeJs version >= 6_
+_Note that in order to run the tests you need NodeJS version >= 6_
 
 ## License
 Copyright (c) 2017 Ioannis Tzanellis<br>
