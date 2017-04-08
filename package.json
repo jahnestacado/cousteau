@@ -1,6 +1,6 @@
 {
   "name": "cousteau",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Recursive directory walker that retrieves all dir/file paths along with their stats and follows symlinks.",
   "main": "index.js",
   "scripts": {
