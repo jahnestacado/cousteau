@@ -83,8 +83,8 @@ cousteau("aPath", (errors, result) => {
     console.log(errors, result);
 });
 
-// Find all directories that contain the "zilla" substring
-// and all png files that their size is more than 1500 bytes
+// Find all png files that their size is more than 1500 bytes
+// and are children of directories that contain the "zilla" substring in their name
 
 const ignoreOptions = {
     dir: {
