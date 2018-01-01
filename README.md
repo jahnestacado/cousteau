@@ -71,7 +71,7 @@ For example:
     }
 ```
 
-The ```ignoreOptions``` can be applied to one or more of the [CousteauStats](#CousteauStats) properties either on the directories and/or the files.
+The ```ignoreOptions``` can be applied to one or more of the [CousteauStats](#CousteauStats) properties both on the directories and/or the files.
 
 ### Example
 ```javascript
